@@ -24,7 +24,7 @@ jobs:
 
       - name: Build ARM64 binary
         run: |
-          GOOS=linux GOARCH=arm64 go build -o gphotos-uploader-cli ./cmd/gphotos-uploader-cli
+          GOOS=linux GOARCH=arm64 go build -o gphotos-uploader-cli ./main.go
 
       - name: Upload binary to Release
         uses: softprops/action-gh-release@v2
