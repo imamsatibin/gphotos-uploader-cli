@@ -26,10 +26,14 @@ jobs:
         run: |
           GOOS=linux GOARCH=arm64 go build -o gphotos-uploader-cli ./main.go
 
-      - name: Upload binary to Release
+      - name: Zip binary with architecture
+        run: |
+          zip gphotos-uploader-cli-arm64.zip gphotos-uploader-cli
+
+      - name: Upload ZIP to Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: "arm64-${{ github.run_number }}"
-          files: gphotos-uploader-cli
+          files: gphotos-uploader-cli-arm64.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
