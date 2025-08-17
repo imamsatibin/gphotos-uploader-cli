@@ -1,0 +1,29 @@
+name: Build gphotos-uploader-cli (ARM64)
+
+on:
+  workflow_dispatch: # dijalankan manual
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Build binary
+        run: |
+          GOARCH=arm64 GOOS=linux go build -o gphotos-uploader-cli ./cmd/gphotos-uploader-cli
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: arm64-build
+          files: gphotos-uploader-cli
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
